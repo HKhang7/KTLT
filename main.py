@@ -898,18 +898,6 @@ def main():
     studentList = []
     subjectList = []
     transcriptList = []
-    # dữ liệu mẫu
-    # studentList.append(Student("KTPM2511111", "Minh", date(2007, 4, 5), "KTPM2025", "KTPM"))
-    # studentList.append(Student("KTPM2511114", "Cinh", date(2007, 4, 5), "CTPM2025", "CTPM"))
-    # studentList.append(Student("KTPM2511112", "Anh", date(2007, 4, 5), "ATPM2025", "ATPM"))
-    # studentList.append(Student("MTPM2511113", "Bnh", date(2007, 4, 5), "MTPM2025", "MTPM"))
-    # subjectList.append(Subject("KTCT1214","Kinh tế chính trị", 2))
-    # subjectList.append(Subject("KTCT1215","Kinh tế chính trị 2", 2))
-    # transcriptList.append(Transcript("KTPM2511111","KTCT1214",9))
-    # transcriptList.append(Transcript("KTPM2511114","KTCT1214",8))
-    # transcriptList.append(Transcript("KTPM2511112","KTCT1214",10))
-    # transcriptList.append(Transcript("MTPM2511113","KTCT1214",2))
-    # transcriptList.append(Transcript("MTPM2511113","KTCT1215",6))
     mainChoice(studentList, subjectList, transcriptList)
 
 
