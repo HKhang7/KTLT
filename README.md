@@ -1,4 +1,4 @@
-'''
+```
 Hệ thống Quản lý và Phân tích Kết quả Học tập Sinh viên
 
 Chương trình quản lý sinh viên viết bằng Python, hỗ trợ lưu trữ dữ liệu qua file CSV, tìm kiếm, sắp xếp và phân tích kết quả học tập.
@@ -20,4 +20,4 @@ Chức năng:
 4. Tìm kiếm sinh viên
 5. Sắp xếp sinh viên
 6. Phân tích học tập
-'''
+```
