@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9286cb36-3ffb-4015-9dd6-eeb5c668aba8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/students.csv" beforeDir="false" afterPath="$PROJECT_DIR$/students.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/subjects.csv" beforeDir="false" afterPath="$PROJECT_DIR$/subjects.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/transcripts.csv" beforeDir="false" afterPath="$PROJECT_DIR$/transcripts.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -124,8 +124,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-PY-253.31033.139" />
-        <option value="bundled-python-sdk-2653e85de345-6d6dccd035ac-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-253.31033.139" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-PY-253.32098.74" />
+        <option value="bundled-python-sdk-1cd77e80b48f-6d6dccd035ac-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-253.32098.74" />
       </set>
     </attachedChunks>
   </component>
@@ -173,7 +173,11 @@
       <workItem from="1774584553187" duration="2678000" />
       <workItem from="1774589032643" duration="1098000" />
       <workItem from="1774608160353" duration="334000" />
-      <workItem from="1774611256400" duration="318000" />
+      <workItem from="1774611256400" duration="731000" />
+      <workItem from="1774612410609" duration="1177000" />
+      <workItem from="1774613747236" duration="2775000" />
+      <workItem from="1774617206413" duration="53000" />
+      <workItem from="1774617510150" duration="125000" />
     </task>
     <servers />
   </component>
@@ -182,6 +186,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/TH_KTLT$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1774531633435" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/.." />
-    <SUITE FILE_PATH="coverage/TH_KTLT$main.coverage" NAME="main Coverage Results" MODIFIED="1774611266527" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/TH_KTLT$main.coverage" NAME="main Coverage Results" MODIFIED="1774612504351" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

@@ -15,6 +15,7 @@ def loadData(studentList, subjectList, transcriptList):
     # Đọc sinh viên
     # Nếu có file sẽ đọc ko sẽ rỗng
     if os.path.exists(STUDENTS_FILE):
+        # mở file, newline ngăn lỗi xuống dòng, utf 8 là kiểu mã, f là tên biến
         with open(STUDENTS_FILE, newline='', encoding='utf-8') as f:
             # lấy dòng đầu làm key và xem như dict
             reader = csv.DictReader(f)
@@ -569,7 +570,8 @@ def mergeList(left, right, sortBy, reverse=False):
         # Lấy giá trị của key để so sánh
         leftValue = sortBy(left[i])
         rightValue = sortBy(right[j])
-        # reverse = True thì xếp từ lớn -> bé (Lấy bến trái)
+        # reverse = True thì xếp từ lớn -> bé (Lấy bên trái)
+        # so sánh i vs j cái nào lớn hơn sẽ ghép vào và bỏ qua nó, khi còn 1 ptu sẽ extend
         if (leftValue > rightValue) if reverse else (leftValue < rightValue):
             result.append(left[i])
             i += 1
