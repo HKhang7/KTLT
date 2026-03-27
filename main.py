@@ -75,8 +75,8 @@ def saveData(studentList, subjectList, transcriptList):
     with open(TRANSCRIPTS_FILE, 'w', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=['studentId', 'subjectId', 'score'])
         writer.writeheader()
-        for t in transcriptList:
-            writer.writerow({'studentId': t.studentId, 'subjectId': t.subjectId, 'score': t.score})
+        for transcript in transcriptList:
+            writer.writerow({'studentId': transcript.studentId, 'subjectId': transcript.subjectId, 'score': transcript.score})
 
     print("Đã lưu dữ liệu!")
 # Hàm nhập input số
