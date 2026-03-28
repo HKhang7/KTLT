@@ -10,7 +10,7 @@ from rank import Rank
 STUDENTS_FILE = "students.csv"
 SUBJECTS_FILE = "subjects.csv"
 TRANSCRIPTS_FILE = "transcripts.csv"
-
+EXIT_CHOICE = 0
 def loadData(studentList, subjectList, transcriptList):
     # Đọc sinh viên
     # Nếu có file sẽ đọc ko sẽ rỗng
@@ -122,6 +122,7 @@ def isStringOutLength(string, amount):
 def printStudentHeading():
     print(f"{"MSSV":<12} {"Họ và Tên":<20} {"Ngày sinh":<12} {"Lớp":<10} {"Ngành"}")
     return
+
 def inputBirthDay():
     while True:
         try:
@@ -233,13 +234,17 @@ def transcriptManager(studentList, subjectList, transcriptList):
         print("3. Xem bảng điểm")
         print("0. Quay lại")
 
+        ADD_TRANSCRIPT_CHOICE = 1
+        UPDATE_TRANSCRIPT_CHOICE = 2
+        PRINT_TRANSCRIPT_CHOICE = 3
+        
         choice = inputInteger()
-
-        if choice == 1:
+        
+        if choice == ADD_TRANSCRIPT_CHOICE:
             addTranscript(transcriptList, studentList, subjectList)
-        elif choice == 2:
+        elif choice == UPDATE_TRANSCRIPT_CHOICE:
             updateTranscript(transcriptList)
-        elif choice == 3:
+        elif choice == PRINT_TRANSCRIPT_CHOICE:
             if isTheListEmpty(transcriptList):
                 print("Chưa có dữ liệu")
                 pressEnterToContinue()
@@ -247,7 +252,7 @@ def transcriptManager(studentList, subjectList, transcriptList):
             print(f"{"MSSV":<12} {"Mã môn":<12} {"Điểm"}")
             # sort ds cho dễ nhìn
             printList(mergeSortList(transcriptList, sortBy=lambda s: s.studentId.lower(), inPlace=False))
-        elif choice == 0:
+        elif choice == EXIT_CHOICE:
             break
         else:
             print("Lựa chọn không hợp lệ!")
@@ -318,7 +323,6 @@ def addStudent(studentList):
             print("Lớp không được để trống!")
             continue
         if isStringOutLength(course, 8):
-            print("Lớp không được quá 8 ký tự!")
             continue
         break
 
@@ -360,21 +364,29 @@ def updateStudentList(studentList, transcriptList):
         print("5. Sửa ngành")
         print("0. Thoát")
 
+        
+        UPDATE_STUDENT_ID_CHOICE = 1
+        UPDATE_STUDENT_NAME_CHOICE = 2
+        UPDATE_STUDENT_BIRTHDAY_CHOICE = 3
+        UPDATE_STUDENT_COURSE_CHOICE = 4
+        UPDATE_STUDENT_BRANCH_CHOICE = 5
+
         choice = inputInteger()
-        if choice == 0:
+        
+        if choice == EXIT_CHOICE:
             return
-        elif choice == 3:
+        
+        elif choice == UPDATE_STUDENT_BIRTHDAY_CHOICE:
             student.dateOfBirth = inputBirthDay()
             print("Cập nhật hoàn tất!")
             continue
-
 
         new = input("Nhập thông tin mới: ").strip()
         if isInputEmpty(new):
             print("Không được bỏ trống")
             continue
 
-        if choice == 1:
+        if choice == UPDATE_STUDENT_ID_CHOICE:
             if len(new) != 11:
                 print("MSSV phải đúng 11 kí tự")
                 continue
@@ -384,23 +396,24 @@ def updateStudentList(studentList, transcriptList):
             updateTranscriptOfStudent(transcriptList, student.id, new)
             student.id = new
             print("Cập nhật hoàn tất!")
-        elif choice == 2:
+            
+        elif choice ==  UPDATE_STUDENT_NAME_CHOICE:
             if isStringOutLength(new, 20):
                 continue
             student.name = new
             print("Cập nhật hoàn tất!")
-        elif choice == 4:
+            
+        elif choice == UPDATE_STUDENT_COURSE_CHOICE:
             if isStringOutLength(new, 8):
                 continue
             student.course = new
             print("Cập nhật hoàn tất!")
-        elif choice == 5:
+            
+        elif choice ==  UPDATE_STUDENT_BRANCH_CHOICE:
             if isStringOutLength(new, 20):
                 continue
             student.branch = new
             print("Cập nhật hoàn tất!")
-
-
 
 def deleteStudent(studentList, transciptList):
     if isTheListEmpty(studentList):
@@ -430,24 +443,28 @@ def studentManager(studentList, transcriptList = None):
         print("4. Hiển thị danh sách sinh viên")
         print("0. Quay lại")
 
+        ADD_STUDENT_CHOICE = 1
+        UPDATE_STUDENT_CHOICE = 2
+        DELETE_STUDENT_CHOICE = 3
+        PRINT_STUDENT_LIST_CHOICE = 4
         choice = inputInteger()
 
-        if choice == 1:
+        if choice == ADD_STUDENT_CHOICE:
             addStudent(studentList)
-        elif choice == 2:
+        elif choice == UPDATE_STUDENT_CHOICE:
             updateStudentList(studentList, transcriptList)
-        elif choice == 3:
+        elif choice == DELETE_STUDENT_CHOICE:
             deleteStudent(studentList, transcriptList)
-        elif choice == 4:
+        elif choice == PRINT_STUDENT_LIST_CHOICE:
             if isTheListEmpty(studentList):
                 print("Chưa có dữ liệu")
                 pressEnterToContinue()
                 continue
             print("Danh sách sinh viên: ")
-            print (
+            print(
                 f"{"MSSV":<12} {"Họ và Tên":<20} {"Ngày sinh":<12} {"Lớp":<10} {"Ngành"}")
             printList(studentList)
-        elif choice == 0:
+        elif choice == EXIT_CHOICE:
             break
         else:
             print("Lựa chọn không hợp lệ!")
@@ -461,7 +478,6 @@ def addSubject(subjectList):
             print("Mã môn không được bỏ trống")
             continue
         if isStringOutLength(subjectId, 12):
-            print("Mã môn học không được quá 12 ký tự!")
             continue
         if findById(subjectList, subjectId):
             print("Mã môn học đã tồn tại!")
@@ -513,12 +529,17 @@ def updateSubject(subjectList, transcriptList):
         print("3. Sửa số tín chỉ")
         print("0. Thoát ra")
 
+       
+        UPDATE_ID_CHOICE = 1
+        UPDATE_NAME_CHOICE = 2
+        UPDATE_CREDIT_CHOICE = 3
         choice = inputInteger()
 
-        if choice == 1:
+        if choice == UPDATE_ID_CHOICE:
             newSubjectId = input("Nhập mã môn học mới: ").strip()
             if isInputEmpty(newSubjectId):
                 print("Mã môn không được để trống!")
+                continue
             # Kiểm tra xem mã mới đã tồn tại ở môn khác chưa
             if findById(subjectList, newSubjectId):
                 print("Mã môn học đã tồn tại, không thể đổi!")
@@ -528,15 +549,16 @@ def updateSubject(subjectList, transcriptList):
             updateTranscriptOfSubject(transcriptList, subjectId, newSubjectId)
             subject.id = newSubjectId
             print("Cập nhật mã môn thành công!")
-        elif choice == 2:
+        elif choice == UPDATE_NAME_CHOICE:
             new = input("Nhập tên môn học mới: ").strip()
             if isInputEmpty(new):
                 print("Tên không được để trống!")
+                continue
             if isStringOutLength(new, 20):
                 continue
             subject.name = new
             print("Cập nhật tên thành công!")
-        elif choice == 3:
+        elif choice == UPDATE_CREDIT_CHOICE:
             while True:
                 try:
                     newCredit = int(input("Nhập số tín chỉ mới: "))
@@ -548,7 +570,7 @@ def updateSubject(subjectList, transcriptList):
                         print("Số tín chỉ phải lớn hơn 0!")
                 except ValueError:
                     print("Lỗi! Số tín chỉ phải là số nguyên.")
-        elif choice == 0:
+        elif choice == EXIT_CHOICE:
             print("Cập nhật hoàn tất!")
             return
         else:
@@ -581,15 +603,18 @@ def subjectManager(subjectList, transcriptList):
         print("3. Xoá môn học")
         print("0. Quay lại")
 
+        ADD_SUBJECT_CHOICE = 1
+        UPDATE_SUBJECT_CHOICE = 2
+        DELETE_SUBJECT_CHOICE = 3
         choice = inputInteger()
 
-        if choice == 1:
+        if choice == ADD_SUBJECT_CHOICE:
             addSubject(subjectList)
-        elif choice == 2:
+        elif choice == UPDATE_SUBJECT_CHOICE:
             updateSubject(subjectList, transcriptList)
-        elif choice == 3:
+        elif choice == DELETE_SUBJECT_CHOICE:
             deleteSubject(subjectList, transcriptList)
-        elif choice == 0:
+        elif choice == EXIT_CHOICE:
             break
         else:
             print("Lựa chọn không hợp lệ!")
@@ -668,24 +693,27 @@ def sortStudentList(studentList, subjectList = None, transcriptList = None):
         print("3. Điểm trung bình")
         print("0. Quay lại")
 
+        NAME_STUDENT_CHOICE = 1
+        ID_STUDENT_CHOICE = 2
+        AVERAGE_SCORE_CHOICE = 3
         choice = inputInteger()
 
-        if choice == 1:
+        if choice == NAME_STUDENT_CHOICE:
             sortByName(studentList)
             print("Đã sắp xếp")
             return
-        elif choice == 2:
+        elif choice == ID_STUDENT_CHOICE:
             sortById(studentList)
             print("Đã sắp xếp")
             return
-        elif choice == 3:
+        elif choice == AVERAGE_SCORE_CHOICE:
             if transcriptList is None:
                 print("Chưa có dữ liệu điểm!")
                 return
             sortByAverage(studentList, subjectList, transcriptList)
             print("Đã sắp xếp")
             return
-        elif choice == 0:
+        elif choice == EXIT_CHOICE:
             break
 
 def findByCourse(studentList):
@@ -733,9 +761,13 @@ def findStudent(studentList):
         print("4. Theo ngành")
         print("0. Quay lại")
 
+        ID_STUDENT_CHOICE = 1
+        COURSE_CHOICE = 2
+        NAME_CHOICE = 3
+        BRANCH_CHOICE = 4
         choice = inputInteger()
 
-        if choice == 1:
+        if choice == ID_STUDENT_CHOICE:
             student = findById(studentList)
             if student:
                 printStudentHeading()
@@ -744,16 +776,16 @@ def findStudent(studentList):
             else:
                 print("Không tìm thấy sinh viên!")
                 pressEnterToContinue()
-        elif choice == 2:
+        elif choice == COURSE_CHOICE:
             printStudentHeading()
             printList(findByCourse(studentList))
-        elif choice == 3:
+        elif choice == NAME_CHOICE:
             printStudentHeading()
             printList(findByName(studentList))
-        elif choice == 4:
+        elif choice == BRANCH_CHOICE:
             printStudentHeading()
             printList(findByBranch(studentList))
-        elif choice == 0:
+        elif choice == EXIT_CHOICE:
             break
         else:
             print("Không có chức năng này!")
@@ -882,27 +914,32 @@ def analyseLearningStat(studentList, subjectList, transcriptList):
         print("5. Thống kê học lực")
         print("0. Quay lại")
 
+        AVCERAGE_SOCRE_CHOICE = 1
+        FIND_TOP_STUDENT_CHOICE = 2
+        FIND_BOTTOM_STUDENT_CHOICE = 3
+        FIND_TOPK_STUDENT_CHOICE = 4
+        LEARNING_STAT_CHOICE = 5
         choice = inputInteger()
 
-        if choice == 1:
+        if choice == AVCERAGE_SOCRE_CHOICE:
             getAverage(studentList, subjectList, transcriptList)
 
-        elif choice == 2:
+        elif choice == FIND_TOP_STUDENT_CHOICE:
             result = findTopStudents(studentList, subjectList, transcriptList)
             printStudentRank(result, subjectList, transcriptList)
 
-        elif choice == 3:
+        elif choice == FIND_BOTTOM_STUDENT_CHOICE:
             result = findBottomStudents(studentList, subjectList, transcriptList)
             printStudentRank(result, subjectList, transcriptList)
 
-        elif choice == 4:
+        elif choice == FIND_TOPK_STUDENT_CHOICE:
             result = findTopKStudents(studentList, subjectList, transcriptList)
             printStudentRank(result, subjectList, transcriptList)
 
-        elif choice == 5:
+        elif choice == LEARNING_STAT_CHOICE:
             learningStat(studentList, subjectList, transcriptList)
 
-        elif choice == 0:
+        elif choice == EXIT_CHOICE:
             break
         else:
             print("Không có chức năng này!")
@@ -923,21 +960,27 @@ def mainChoice(studentList, subjectList, transcriptList):
     while True:
         printMainMenu()
 
+        STUDENT_MANAGER_CHOICE = 1
+        SUBJECT_MANAGER_CHOICE = 2
+        TRANSCRIPT_MANAGER_CHOICE = 3
+        FIND_STUDENT_CHOICE = 4
+        SORT_STUDENT_LIST_CHOICE = 5
+        ANALYSE_LEARNING_STAT_CHOICE = 6
         choice = inputInteger()
 
-        if choice == 1:
+        if choice == STUDENT_MANAGER_CHOICE:
             studentManager(studentList, transcriptList)
-        elif choice == 2:
+        elif choice == SUBJECT_MANAGER_CHOICE:
             subjectManager(subjectList, transcriptList)
-        elif choice == 3:
+        elif choice == TRANSCRIPT_MANAGER_CHOICE:
             transcriptManager(studentList, subjectList, transcriptList)
-        elif choice == 4:
+        elif choice == FIND_STUDENT_CHOICE:
             findStudent(studentList)
-        elif choice == 5:
+        elif choice == SORT_STUDENT_LIST_CHOICE:
             sortStudentList(studentList, subjectList, transcriptList)
-        elif choice == 6:
+        elif choice == ANALYSE_LEARNING_STAT_CHOICE:
             analyseLearningStat(studentList, subjectList, transcriptList)
-        elif choice == 0:
+        elif choice == EXIT_CHOICE:
             print("Thoát chương trình.")
             saveData(studentList, subjectList, transcriptList)
             break
