@@ -107,6 +107,10 @@ def isTheListEmpty(lst):
     # Nếu lst trống sẽ ra True
     return len(lst) == 0
 
+# Hàm xem input có rỗng k
+def isInputEmpty(inp):
+    return inp == ""
+
 # Hàm giới hạn kí tự
 def isStringOutLength(string, amount):
     if len(string) > amount:
@@ -248,6 +252,16 @@ def transcriptManager(studentList, subjectList, transcriptList):
         else:
             print("Lựa chọn không hợp lệ!")
 
+def updateTranscriptOfStudent(transcriptList, oldId, newId):
+    for transcript in transcriptList:
+        if transcript.studentId.lower() == oldId.lower():
+            transcript.studentId = newId
+
+def updateTranscriptOfSubject(transcriptList, oldId, newId):
+    for transcript in transcriptList:
+        if transcript.subjectId.lower() == oldId.lower():
+            transcript.subjectId = newId
+
 def deleteTranscriptOfStudent(lst, id):
     if isTheListEmpty(lst):
         return
@@ -270,41 +284,60 @@ def addStudent(studentList):
     # Nhập MSSV
     while True:
         studentId = input("Nhập mã số sinh viên: ").strip()
-        if not studentId:
-            print("MSSV không được rỗng!")
-        elif findById(studentList, studentId):
-            print("MSSV đã tồn tại!")
-        elif len(studentId) != 11:
+        if isInputEmpty(studentId):
+            print("MSSV không được bỏ trống")
+            continue
+        if len(studentId) != 11:
             print("MSSV phải đúng 11 kí tự")
-        else:
-            break
+            continue
+        if not studentId.isdigit():
+            print("MSSV chỉ được chứa chữ số!")
+            continue
+        if findById(studentList, studentId):
+            print("MSSV đã tồn tại!")
+            continue
+        break
 
     # Nhập tên
     while True:
         name = input("Nhập tên sinh viên: ").strip()
-        if not isStringOutLength(name, 20):
-            break
+        if isInputEmpty(name):
+            print("Tên không được để trống!")
+            continue
+        if isStringOutLength(name, 20):
+            continue
+        break
 
-    # nhập ngày sinh
+    # Nhập ngày sinh
     dateOfBirth = inputBirthDay()
 
-    # nhập lớp
+    # Nhập lớp
     while True:
         course = input("Nhập lớp: ").strip()
-        if not isStringOutLength(course, 8):
-            break
+        if isInputEmpty(course):
+            print("Lớp không được để trống!")
+            continue
+        if isStringOutLength(course, 8):
+            print("Lớp không được quá 8 ký tự!")
+            continue
+        break
 
-    # Validate ngành
+    # Nhập ngành
     while True:
         branch = input("Nhập ngành: ").strip()
-        if not isStringOutLength(branch, 20):
-            break
+        if isInputEmpty(branch):
+            print("Ngành không được để trống!")
+            continue
+        if isStringOutLength(branch, 20):
+            print("Ngành không được quá 20 ký tự!")
+            continue
+        break
 
     studentList.append(Student(studentId, name, dateOfBirth, course, branch))
     print("Thêm thành công!")
     pressEnterToContinue()
 
-def updateStudentList(studentList):
+def updateStudentList(studentList, transcriptList):
     if isTheListEmpty(studentList):
         print("Chưa có dữ liệu")
         pressEnterToContinue()
@@ -328,40 +361,44 @@ def updateStudentList(studentList):
         print("0. Thoát")
 
         choice = inputInteger()
+        if choice == 0:
+            return
+        elif choice == 3:
+            student.dateOfBirth = inputBirthDay()
+            print("Cập nhật hoàn tất!")
+            continue
+
+        new = input("Nhập thông tin mới: ").strip()
+        if isInputEmpty(new):
+            print("Không được bỏ trống")
+            continue
 
         if choice == 1:
-            new = input("Nhập MSSV mới: ").strip()
             if len(new) != 11:
                 print("MSSV phải đúng 11 kí tự")
                 continue
             if findById(studentList, new):
                 print("MSSV trùng!")
                 continue
+            updateTranscriptOfStudent(transcriptList, student.id, new)
             student.id = new
             print("Cập nhật hoàn tất!")
         elif choice == 2:
-            new = input("Nhập tên mới: ").strip()
             if isStringOutLength(new, 20):
                 continue
             student.name = new
             print("Cập nhật hoàn tất!")
-        elif choice == 3:
-            student.dateOfBirth = inputBirthDay()
-            print("Cập nhật hoàn tất!")
         elif choice == 4:
-            new = input("Nhập tên mới: ").strip()
             if isStringOutLength(new, 8):
                 continue
             student.course = new
             print("Cập nhật hoàn tất!")
         elif choice == 5:
-            new = input("Nhập tên mới: ").strip()
             if isStringOutLength(new, 20):
                 continue
             student.branch = new
             print("Cập nhật hoàn tất!")
-        elif choice == 0:
-            return
+
 
 
 def deleteStudent(studentList, transciptList):
@@ -397,7 +434,7 @@ def studentManager(studentList, transcriptList = None):
         if choice == 1:
             addStudent(studentList)
         elif choice == 2:
-            updateStudentList(studentList)
+            updateStudentList(studentList, transcriptList)
         elif choice == 3:
             deleteStudent(studentList, transcriptList)
         elif choice == 4:
@@ -419,34 +456,42 @@ def addSubject(subjectList):
     # Thêm mã môn học
     while True:
         subjectId = input("Nhập mã môn học: ").strip()
-        if not subjectId:
-            print("Mã môn học không được rỗng!")
-        elif findById(subjectList, subjectId):
+        if isInputEmpty(subjectId):
+            print("Mã môn không được bỏ trống")
+            continue
+        if isStringOutLength(subjectId, 12):
+            print("Mã môn học không được quá 12 ký tự!")
+            continue
+        if findById(subjectList, subjectId):
             print("Mã môn học đã tồn tại!")
-        elif isStringOutLength(subjectId, 12):
-            pass  # isStringOutLength đã tự print lỗi
-        else:
-            break
+            continue
+        break
 
     # Thêm tên môn học
     while True:
         subjectName = input("Nhập tên môn học: ").strip()
-        if not isStringOutLength(subjectName, 20):
-            break
+        if isInputEmpty(subjectName):
+            print("Tên không được để trống!")
+            continue
+        if isStringOutLength(subjectName, 20):
+            print("Tên môn học không được quá 20 ký tự!")
+            continue
+        break
 
     # Thêm số tín chỉ
     while True:
         credit = inputInteger()
-        if credit > 0:
-            break
-        print("Số tín chỉ phải lớn hơn 0!")
+        if credit <= 0:
+            print("Số tín chỉ phải lớn hơn 0!")
+            continue
+        break
 
     subjectList.append(Subject(subjectId, subjectName, credit))
     print("Thêm thành công")
     pressEnterToContinue()
 
 
-def updateSubject(subjectList):
+def updateSubject(subjectList, transcriptList):
     if isTheListEmpty(subjectList):
         print("Chưa có dữ liệu")
         pressEnterToContinue()
@@ -471,16 +516,21 @@ def updateSubject(subjectList):
 
         if choice == 1:
             newSubjectId = input("Nhập mã môn học mới: ").strip()
+            if isInputEmpty(newSubjectId):
+                print("Mã môn không được để trống!")
             # Kiểm tra xem mã mới đã tồn tại ở môn khác chưa
             if findById(subjectList, newSubjectId):
                 print("Mã môn học đã tồn tại, không thể đổi!")
                 continue
             elif isStringOutLength(newSubjectId, 12):
                 continue
+            updateTranscriptOfSubject(transcriptList, subjectId, newSubjectId)
             subject.id = newSubjectId
             print("Cập nhật mã môn thành công!")
         elif choice == 2:
             new = input("Nhập tên môn học mới: ").strip()
+            if isInputEmpty(new):
+                print("Tên không được để trống!")
             if isStringOutLength(new, 20):
                 continue
             subject.name = new
@@ -535,7 +585,7 @@ def subjectManager(subjectList, transcriptList):
         if choice == 1:
             addSubject(subjectList)
         elif choice == 2:
-            updateSubject(subjectList)
+            updateSubject(subjectList, transcriptList)
         elif choice == 3:
             deleteSubject(subjectList, transcriptList)
         elif choice == 0:
@@ -901,6 +951,5 @@ def main():
     subjectList = []
     transcriptList = []
     mainChoice(studentList, subjectList, transcriptList)
-
 
 main()
