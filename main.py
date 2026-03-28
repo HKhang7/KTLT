@@ -368,6 +368,7 @@ def updateStudentList(studentList, transcriptList):
             print("Cập nhật hoàn tất!")
             continue
 
+
         new = input("Nhập thông tin mới: ").strip()
         if isInputEmpty(new):
             print("Không được bỏ trống")
