@@ -4,7 +4,6 @@ from datetime import date, datetime
 from student import Student
 from subject import Subject
 from transcript import Transcript
-from rank import Rank
 
 # Chỗ lưu và lấy file
 STUDENTS_FILE = "students.csv"
