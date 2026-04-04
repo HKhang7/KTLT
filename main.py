@@ -333,7 +333,6 @@ def addStudent(studentList):
             print("Ngành không được để trống!")
             continue
         if isStringOutLength(branch, 20):
-            print("Ngành không được quá 20 ký tự!")
             continue
         break
 
@@ -491,7 +490,6 @@ def addSubject(subjectList):
             print("Tên không được để trống!")
             continue
         if isStringOutLength(subjectName, 20):
-            print("Tên môn học không được quá 20 ký tự!")
             continue
         break
 
@@ -853,49 +851,43 @@ def findTopKStudents(studentList, subjectList, transcriptList):
         # Xuất danh sách 0 -> amount
         return sortedList[:amount]
 
-# Thống kê học lực
+# thống kê học lực theo hệ 4
 def learningStat(studentList, subjectList, transcriptList):
-    amountOfAPlus = 0
-    amountOfA = 0
-    amountOfBPlus = 0
-    amountOfB = 0
-    amountOfCPlus = 0
-    amountOfC = 0
-    amountOfDPlus = 0
-    amountOfD = 0
-    amountOfF = 0
+    EXCELLENT_MIN_SCORE = 3.6
+    GOOD_MIN_SCORE = 3.2
+    FAIR_MIN_SCORE = 2.5
+    AVERAGE_MIN_SCORE = 2.0
+    WEAK_MIN_SCORE = 1.0
 
-    # Đếm số điểm từng sinh viên
+    amountOfExcellent = 0
+    amountOfGood = 0
+    amountOfFair = 0
+    amountOfAverage = 0
+    amountOfWeak = 0
+    amountOfPoor = 0
+
     for student in studentList:
-        score = student.getAverage(subjectList, transcriptList)
-        if score >= Rank.A_PLUS.value:
-            amountOfAPlus += 1
-        elif score >= Rank.A.value:
-            amountOfA += 1
-        elif score >= Rank.B_PLUS.value:
-            amountOfBPlus += 1
-        elif score >= Rank.B.value:
-            amountOfB += 1
-        elif score >= Rank.C_PLUS.value:
-            amountOfCPlus += 1
-        elif score >= Rank.C.value:
-            amountOfC += 1
-        elif score >= Rank.D_PLUS.value:
-            amountOfDPlus += 1
-        elif score >= Rank.D.value:
-            amountOfD += 1
+        gpa4 = student.getGPA4(subjectList, transcriptList)
+        if gpa4 >= EXCELLENT_MIN_SCORE:
+            amountOfExcellent += 1
+        elif gpa4 >= GOOD_MIN_SCORE:
+            amountOfGood += 1
+        elif gpa4 >= FAIR_MIN_SCORE:
+            amountOfFair += 1
+        elif gpa4 >= AVERAGE_MIN_SCORE:
+            amountOfAverage += 1
+        elif gpa4 >= WEAK_MIN_SCORE:
+            amountOfWeak += 1
         else:
-            amountOfF += 1
+            amountOfPoor += 1
+
     print(f"""
-Số lượng A+ là {amountOfAPlus}
-Số lượng A là {amountOfA}
-Số lượng B+ là {amountOfBPlus}
-Số lượng B là {amountOfB}
-Số lượng C+ là {amountOfCPlus}
-Số lượng C là {amountOfC}
-Số lượng D+ là {amountOfDPlus}
-Số lượng D là {amountOfD}
-Số lượng F là {amountOfF}
+Số lượng Xuất sắc là {amountOfExcellent}
+Số lượng Giỏi là {amountOfGood}
+Số lượng Khá là {amountOfFair}
+Số lượng Trung bình là {amountOfAverage}
+Số lượng Yếu là {amountOfWeak}
+Số lượng Kém là {amountOfPoor}
 """)
     pressEnterToContinue()
 
