@@ -90,7 +90,8 @@ def inputInteger():
 
 # Hàm delay sau khi xuất dữ liệu
 def pressEnterToContinue():
-    input("\nNhấn enter để tiếp tục! ")
+    print("\nNhấn enter để tiếp tục!", end="")
+    input()
 
 # Hàm in ds kết quả
 def printList(result):
