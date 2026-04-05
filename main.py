@@ -882,12 +882,12 @@ def learningStat(studentList, subjectList, transcriptList):
             amountOfPoor += 1
 
     print(f"""
-Số lượng Xuất sắc là {amountOfExcellent}
-Số lượng Giỏi là {amountOfGood}
-Số lượng Khá là {amountOfFair}
-Số lượng Trung bình là {amountOfAverage}
-Số lượng Yếu là {amountOfWeak}
-Số lượng Kém là {amountOfPoor}
+Số lượng sinh viên Xuất sắc là {amountOfExcellent}
+Số lượng sinh viên Giỏi là {amountOfGood}
+Số lượng sinh viên Khá là {amountOfFair}
+Số lượng sinh viên Trung bình là {amountOfAverage}
+Số lượng sinh viên Yếu là {amountOfWeak}
+Số lượng sinh viên Kém là {amountOfPoor}
 """)
     pressEnterToContinue()
 
