@@ -1,5 +1,3 @@
-from rank import Rank
-
 class Student:
     def __init__(self, studentId, name, dateOfBirth, course, branch):
         self.id = studentId

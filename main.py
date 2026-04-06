@@ -226,6 +226,15 @@ def updateTranscript(transcriptList):
     print("Không tìm thấy bảng điểm!")
     pressEnterToContinue()
 
+def viewTranscript(transcriptList):
+    if isTheListEmpty(transcriptList):
+        print("Chưa có dữ liệu")
+        pressEnterToContinue()
+        return
+    print(f"{"MSSV":<12} {"Mã môn":<12} {"Điểm"}")
+    # sort ds cho dễ nhìn
+    printList(mergeSortList(transcriptList, sortBy=lambda s: s.studentId.lower(), inPlace=False))
+
 def transcriptManager(studentList, subjectList, transcriptList):
     while True:
         print("\n-- Quản lý bảng điểm --")
@@ -245,13 +254,7 @@ def transcriptManager(studentList, subjectList, transcriptList):
         elif choice == UPDATE_TRANSCRIPT_CHOICE:
             updateTranscript(transcriptList)
         elif choice == PRINT_TRANSCRIPT_CHOICE:
-            if isTheListEmpty(transcriptList):
-                print("Chưa có dữ liệu")
-                pressEnterToContinue()
-                continue
-            print(f"{"MSSV":<12} {"Mã môn":<12} {"Điểm"}")
-            # sort ds cho dễ nhìn
-            printList(mergeSortList(transcriptList, sortBy=lambda s: s.studentId.lower(), inPlace=False))
+            viewTranscript(transcriptList)
         elif choice == EXIT_CHOICE:
             break
         else:
@@ -433,6 +436,16 @@ def deleteStudent(studentList, transciptList):
     print("Đã xoá!")
     pressEnterToContinue()
 
+def displayStudents(studentList):
+    if isTheListEmpty(studentList):
+        print("Chưa có dữ liệu")
+        pressEnterToContinue()
+        return
+    print("Danh sách sinh viên: ")
+    print(
+        f"{"MSSV":<12} {"Họ và Tên":<20} {"Ngày sinh":<12} {"Lớp":<10} {"Ngành"}")
+    printList(studentList)
+
 def studentManager(studentList, transcriptList = None):
     while True:
         print("\n-- Quản lý sinh viên --")
@@ -455,14 +468,7 @@ def studentManager(studentList, transcriptList = None):
         elif choice == DELETE_STUDENT_CHOICE:
             deleteStudent(studentList, transcriptList)
         elif choice == PRINT_STUDENT_LIST_CHOICE:
-            if isTheListEmpty(studentList):
-                print("Chưa có dữ liệu")
-                pressEnterToContinue()
-                continue
-            print("Danh sách sinh viên: ")
-            print(
-                f"{"MSSV":<12} {"Họ và Tên":<20} {"Ngày sinh":<12} {"Lớp":<10} {"Ngành"}")
-            printList(studentList)
+            displayStudents(studentList)
         elif choice == EXIT_CHOICE:
             break
         else:
