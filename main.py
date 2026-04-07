@@ -500,11 +500,14 @@ def addSubject(subjectList):
         break
 
     # Thêm số tín chỉ
+    MAX_CREDIT = 5;
     while True:
         credit = inputInteger()
         if credit <= 0:
             print("Số tín chỉ phải lớn hơn 0!")
             continue
+        elif credit > MAX_CREDIT:
+            print(f"Số tín chỉ phải nhỏ hơn {MAX_CREDIT}!")
         break
 
     subjectList.append(Subject(subjectId, subjectName, credit))
@@ -564,14 +567,15 @@ def updateSubject(subjectList, transcriptList):
             print("Cập nhật tên thành công!")
         elif choice == UPDATE_CREDIT_CHOICE:
             while True:
+                MAX_CREDIT = 5
                 try:
                     newCredit = int(input("Nhập số tín chỉ mới: "))
-                    if newCredit > 0:
+                    if newCredit > 0 and newCredit <= MAX_CREDIT:
                         subject.credit = newCredit
                         print("Cập nhật tín chỉ thành công!")
                         break
                     else:
-                        print("Số tín chỉ phải lớn hơn 0!")
+                        print(f"Số tín chỉ phải lớn hơn 0 và nhỏ hơn {MAX_CREDIT}!")
                 except ValueError:
                     print("Lỗi! Số tín chỉ phải là số nguyên.")
         elif choice == EXIT_CHOICE:
